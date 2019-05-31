@@ -29,6 +29,7 @@ class ConfirmRequest extends FormRequest
             'address'     => 'required',
             'tariff_id'   => 'required|exists:tariffs,id',
             'amount_days' => 'required|integer|min:6|max:24',
+            'first_day'   => 'required',
         ];
     }
 
@@ -42,6 +43,7 @@ class ConfirmRequest extends FormRequest
             'phone.max'          => 'Неверный формат',
             'address.required'   => 'Обязательное поле',
             'tariff_id.required' => 'Обязательное поле',
+            'first_day.required' => 'Обязательное поле',
         ];
     }
 

@@ -11,7 +11,9 @@ class Tariff extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'name'        => 'string',
-        'description' => 'string',
+        'name'          => 'string',
+        'description'   => 'string',
+        'price'         => 'float',
+        'disabled_days' => 'array',
     ];
 }

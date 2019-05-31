@@ -15,28 +15,48 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 
-        Tariff::create([
-            'name'        => 'Fit',
-            'description' => 'Тариф для тех, кто хочет похудеть',
-            'price'       => 300,
-        ]);
+        // 0 - вс
+        // 1 - пн
+        // 2 - вт
+        // 3 - ср
+        // 4 - чт
+        // 5 - пт
+        // 6 - сб
 
-        Tariff::create([
-            'name'        => 'Daily',
-            'description' => 'Тариф для номального ежедневного питания',
-            'price'       => 600,
-        ]);
+        Tariff::updateOrCreate(
+            ['name' => 'Fit'],
+            [
+                'name'          => 'Fit',
+                'description'   => 'Тариф для тех, кто хочет похудеть',
+                'price'         => 300,
+                'disabled_days' => [0, 6],
+            ]);
 
-        Tariff::create([
-            'name'        => 'Balance',
-            'description' => 'Тариф для тех, кто хочет быть в форме',
-            'price'       => 900,
-        ]);
+        Tariff::updateOrCreate(
+            ['name' => 'Daily'],
+            [
+                'name'          => 'Daily',
+                'description'   => 'Тариф для номального ежедневного питания',
+                'price'         => 600,
+                'disabled_days' => [],
+            ]);
 
-        Tariff::create([
-            'name'        => 'Power',
-            'description' => 'Тариф для набора массы',
-            'price'       => 1200,
-        ]);
+        Tariff::updateOrCreate(
+            ['name' => 'Balance'],
+            [
+                'name'          => 'Balance',
+                'description'   => 'Тариф для тех, кто хочет быть в форме',
+                'price'         => 900,
+                'disabled_days' => [0, 1, 6],
+            ]);
+
+        Tariff::updateOrCreate(
+            ['name' => 'Power'],
+            [
+                'name'          => 'Power',
+                'description'   => 'Тариф для набора массы',
+                'price'         => 1200,
+                'disabled_days' => [0, 2, 4, 6],
+            ]);
     }
 }

@@ -15,6 +15,11 @@ class Order extends Model
         'tariff_id' => 'integer',
         'name'      => 'string',
         'address'   => 'string',
+        'first_day' => 'datetime',
+    ];
+
+    protected $dates = [
+        'first_day',
     ];
 
     public function tariff()

@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('name');
             $table->text('address');
             $table->unsignedTinyInteger('amount_days');
+            $table->timestamp('first_day');
             $table->timestamps();
 
             $table->foreign('client_id')

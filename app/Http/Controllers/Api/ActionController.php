@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,11 +33,11 @@ class ActionController extends Controller
         $clients = Client::with([
             'orders' => function (HasMany $query) {
                 $query->latest();
-        }, 'orders.tariff'])->get();
+            }, 'orders.tariff'])->get();
 
         return ClientResource::collection($clients);
     }
-    
+
     public function confirm(ConfirmRequest $request)
     {
         $data = $request->toArray();
@@ -60,6 +61,7 @@ class ActionController extends Controller
                     'name'        => $data['name'],
                     'address'     => $data['address'],
                     'amount_days' => $data['amount_days'],
+                    'first_day'   => Carbon::createFromFormat('d.m.Y', $data['first_day']),
                 ]);
             });
 

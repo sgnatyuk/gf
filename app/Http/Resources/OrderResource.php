@@ -20,6 +20,7 @@ class OrderResource extends JsonResource
             'address'     => $this->address,
             'tariff_name' => $this->tariff->name,
             'amount_days' => $this->amount_days,
+            'first_day'   => $this->first_day->format('d.m.Y'),
         ];
     }
 }

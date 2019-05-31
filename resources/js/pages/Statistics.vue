@@ -24,7 +24,8 @@
                                 <li class="list-group-item" v-for="order in item.orders">
                                     <b>Тариф:</b> {{ order.tariff_name }},
                                     <b>адрес:</b> {{ order.address }},
-                                    <b>дней:</b> {{ order.amount_days }}
+                                    <b>дней:</b> {{ order.amount_days }},
+                                    <b>первый день:</b> {{ order.first_day }}
                                 </li>
                             </ul>
                         </td>

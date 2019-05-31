@@ -18,6 +18,7 @@ class CreateTariffsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->float('price');
+            $table->string('disabled_days', 21)->nullable();
             $table->timestamps();
         });
     }

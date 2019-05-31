@@ -95,6 +95,23 @@
                     </small>
                 </div>
 
+                <div v-show="data.tariff_id">
+
+                    <Datepicker
+                            id="first_day"
+                            :disabled_days="disabledDays"
+                            :error="errors.get('first_day')"
+                            v-model="data.first_day">Первый день доставки
+                    </Datepicker>
+
+                    <p>Доступные дни:</p>
+
+                    <ul>
+                        <li v-for="day in enabledDays">{{ day }}</li>
+                    </ul>
+
+                </div>
+
                 <div class="form-group">
 
                     <p>Количество дней</p>
@@ -134,6 +151,17 @@
 <script>
 
     import InputErrors from '../util/InputErrors';
+    import Datepicker from '../componets/Datepicker';
+
+    const daysOfWeek = [
+        'Воскресение',
+        'Понедельник',
+        'Вторник',
+        'Среда',
+        'Четверг',
+        'Пятница',
+        'Суббота',
+    ];
 
     export default {
         created() {
@@ -141,6 +169,9 @@
                 .get('getTariffs')
                 .then(response => this.tariffs = response.data.data);
 
+        },
+        components: {
+            Datepicker,
         },
         data() {
             return {
@@ -154,6 +185,7 @@
                     phone: null,
                     address: null,
                     tariff_id: null,
+                    first_day: null,
                     amount_days: 6,
                 },
                 tariffs: [],
@@ -161,24 +193,39 @@
             };
         },
         computed: {
-            tariffDescription() {
+            currentTariff() {
 
                 if (this.data.tariff_id === null)
                     return null;
 
-                let currentTariff = this.tariffs.find(tariff => tariff.id === this.data.tariff_id);
+                return this.tariffs.find(tariff => tariff.id === this.data.tariff_id);
+            },
 
-                return `${currentTariff.description} (${currentTariff.price} руб.)`;
+            tariffDescription() {
+
+                if (this.currentTariff === null)
+                    return null;
+
+                return `${this.currentTariff.description} (${this.currentTariff.price} руб.)`;
             },
             total() {
 
-                if (this.data.tariff_id === null)
+                if (this.currentTariff === null)
                     return null;
 
-                let currentTariff = this.tariffs.find(tariff => tariff.id === this.data.tariff_id),
-                    total = currentTariff.price * this.data.amount_days;
+                let total = this.currentTariff.price * this.data.amount_days;
 
                 return `${total} руб.`;
+            },
+            disabledDays() {
+
+                if (this.currentTariff === null)
+                    return [0, 1, 2, 3, 4, 5, 6]; // Все дни
+
+                return this.currentTariff.disabled_days;
+            },
+            enabledDays() {
+                return daysOfWeek.filter((item, index) => (!this.disabledDays.includes(index)));
             },
         },
         methods: {
