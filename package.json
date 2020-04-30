@@ -23,7 +23,7 @@
         "air-datepicker": "^2.2.3",
         "axios": "^0.18",
         "bootstrap": "^4.1.0",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "vue": "^2.5.17",
         "vue-router": "^3.0.6"
     }
